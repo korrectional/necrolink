@@ -1,0 +1,33 @@
+{
+  "name": "necrolink",
+  "version": "1.0.0",
+  "description": "NecroLink: The Living Terminal & Digital Ofrenda - Bridging forgotten open-source repositories and living memory",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "cli",
+    "agent",
+    "workflows",
+    "web"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "tsc --noEmit && npm run typecheck --workspaces --if-present",
+    "test": "tsx tests/cli.test.ts",
+    "cli": "tsx cli/bin/necrolink.ts",
+    "cli:possession": "tsx cli/bin/necrolink.ts possession",
+    "cli:resurrect": "tsx cli/bin/necrolink.ts resurrect",
+    "cli:altar": "tsx cli/bin/necrolink.ts altar",
+    "analysis:dev": "python -m uvicorn analysis.app:app --reload --port 8000",
+    "web:dev": "npm run dev --workspace=web",
+    "temporal:worker": "tsx workflows/src/worker.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

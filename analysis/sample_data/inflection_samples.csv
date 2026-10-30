@@ -1,0 +1,13 @@
+repo_name,quarter,commit_interval_days,author_count,deletions_ratio,issue_resolution_latency,risk_score,is_inflection_point
+zlib-contrib,2017-Q1,3.2,8,0.35,14.2,0.12,0
+zlib-contrib,2017-Q2,4.5,7,0.30,18.0,0.18,0
+zlib-contrib,2017-Q3,8.1,5,0.25,28.5,0.29,0
+zlib-contrib,2017-Q4,19.4,3,0.18,55.0,0.48,0
+zlib-contrib,2018-Q1,62.0,1,0.06,120.4,0.78,1
+zlib-contrib,2018-Q2,145.0,1,0.02,240.0,0.94,0
+zlib-contrib,2018-Q3,290.0,1,0.00,380.0,0.99,0
+libjpeg-classic,2014-Q1,5.1,6,0.31,16.0,0.15,0
+libjpeg-classic,2014-Q2,6.8,5,0.28,21.5,0.22,0
+libjpeg-classic,2014-Q3,24.0,2,0.12,65.0,0.52,0
+libjpeg-classic,2014-Q4,88.5,1,0.04,180.0,0.85,1
+libjpeg-classic,2015-Q1,210.0,1,0.01,310.0,0.96,0

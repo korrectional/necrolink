@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  overflow-x: hidden;
+}
+
+/* Custom candle flame flicker effect */
+.candle-flame {
+  width: 14px;
+  height: 24px;
+  background: radial-gradient(ellipse at bottom, #ffffff 0%, #fef08a 25%, #f59e0b 60%, #ea580c 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  animation: flicker 2s infinite alternate ease-in-out;
+  box-shadow: 0 0 16px #f59e0b, 0 0 32px #ea580c;
+}
+
+/* Papel picado banner styling */
+.papel-banner {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #ec4899,
+    #ec4899 40px,
+    #8b5cf6 40px,
+    #8b5cf6 80px,
+    #f59e0b 80px,
+    #f59e0b 120px,
+    #10b981 120px,
+    #10b981 160px
+  );
+  height: 8px;
+}

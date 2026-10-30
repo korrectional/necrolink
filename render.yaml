@@ -1,0 +1,35 @@
+services:
+  # 1. NecroLink Digital Ofrenda Web Dashboard (Next.js)
+  - type: web
+    name: necrolink-web
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm install && npm run build --workspace=web
+    startCommand: npm run start --workspace=web
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SENTRY_DSN
+        sync: false
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: AUTH0_DOMAIN
+        sync: false
+    customDomains:
+      - ofrenda.necrolink.tech
+      - necrolink.tech
+
+  # 2. TabPFN-3.5 Abandonment & Mortality Prediction Microservice (Python FastAPI)
+  - type: web
+    name: necrolink-tabpfn-api
+    runtime: python
+    plan: starter
+    region: oregon
+    buildCommand: pip install -r analysis/requirements.txt
+    startCommand: uvicorn analysis.app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+    customDomains:
+      - api.necrolink.tech
