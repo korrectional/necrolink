@@ -139,6 +139,25 @@ npx tsx cli/bin/necrolink.ts analyze unix-v6-legacy
 npx tsx cli/bin/necrolink.ts eulogy fortran-matrix-v1
 ```
 
+### Simulate GitHub `repository.archived` Webhook Ingestion
+```bash
+npx tsx cli/bin/necrolink.ts simulate-archive fortran-matrix-v1
+```
+
+---
+
+## ⚡ Live GitHub Webhook Ingestion
+
+NecroLink operates a live webhook receiver endpoint at `/api/webhooks/github` that automatically listens for repository deprecation and archival events:
+1. **Supported Webhook Events**:
+   - `repository` (action: `archived`): Triggered when a maintainer officially archives a repository.
+   - `issues` (action: `labeled` with `memorial` or `resurrect`): Triggered when community members request memorial tribute for a dormant library.
+   - `ping`: GitHub webhook handshake validation.
+2. **Security**: Verifies payload integrity via `X-Hub-Signature-256` HMAC SHA-256 using timing-safe comparison with `GITHUB_WEBHOOK_SECRET`.
+3. **Automated Dispatch**:
+   - If `GITHUB_TOKEN` is configured, automatically posts an evocative Memorial Post-Mortem issue comment celebrating the maintainers.
+   - Saves formatted memorial Markdown artifacts into the local [`memorials/`](file:///C:/Users/david/src/--misc/hacktoberfest/memorials/) directory.
+
 ---
 
 ## 🌐 Digital Ofrenda Web Dashboard

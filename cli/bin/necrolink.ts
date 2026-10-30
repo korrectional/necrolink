@@ -13,6 +13,7 @@ import { terminalAudio } from "../lib/terminalAudio.js";
 import { runTabPFNAnalysis } from "../../agent/src/tools/tabpfnTool.js";
 import { parseGitRepository } from "../../agent/src/tools/gitParserTool.js";
 import { runStandaloneWorkflow } from "../../workflows/src/worker.js";
+import { processGitHubWebhook } from "../../agent/src/tools/githubWebhookTool.js";
 
 const program = new Command();
 
@@ -119,6 +120,67 @@ program
   .action(() => {
     const session = new GhostShellSession("open-source-ancestors");
     session.displayTerminalOfrenda();
+  });
+
+// 6. Simulate GitHub Archive Webhook Command
+program
+  .command("simulate-archive")
+  .description("Simulates an incoming GitHub repository.archived webhook event and dispatches a memorial post-mortem")
+  .argument("[target]", "Target repository name to simulate archival event for", "unix-v6-legacy")
+  .action(async (target) => {
+    console.log(chalk.yellow(`\n⚡ [GitHub Webhook Ingestion] Simulating 'repository.archived' event for: ${chalk.bold(target)}...`));
+
+    const mockPayload = JSON.stringify({
+      action: "archived",
+      repository: {
+        name: target,
+        full_name: `legacy-ancestors/${target}`,
+        html_url: `https://github.com/legacy-ancestors/${target}`,
+        description: "Historical repository archived by maintainer.",
+        archived: true
+      },
+      sender: {
+        login: "original-creator"
+      }
+    });
+
+    const headers = {
+      "x-github-event": "repository",
+      "x-github-delivery": `delivery-mock-${Date.now()}`
+    };
+
+    const result = await processGitHubWebhook(mockPayload, headers);
+
+    if (result.status === "processed") {
+      console.log(chalk.green(`\n✅ [Webhook Dispatcher]: ${result.message}`));
+      console.log(chalk.bold(`Dispatched To:  `) + chalk.cyan(result.dispatchedTo));
+      if (result.artifactPath) {
+        console.log(chalk.bold(`Artifact Path:  `) + chalk.yellow(result.artifactPath));
+      }
+      console.log(chalk.bold(`Risk Score:     `) + chalk.magenta(`${((result.memorialPayload?.mortality.abandonment_risk || 0) * 100).toFixed(1)}%`));
+      console.log(chalk.hex("#FF7518")(`\n--- Generated GitHub Post-Mortem Preview ---\n`));
+      console.log(result.memorialMarkdown?.slice(0, 750) + "\n...\n");
+    } else {
+      console.log(chalk.red(`Webhook simulation returned status: ${result.status} (${result.message})`));
+    }
+  });
+
+// 7. Webhook Configuration Information
+program
+  .command("webhook-info")
+  .description("Displays GitHub Webhook receiver configuration guide and setup URL")
+  .action(() => {
+    console.log(chalk.hex("#FF7518")(`
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║         🕯️  G I T H U B   W E B H O O K   R E C E I V E R  🕯️        ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+`));
+    console.log(chalk.bold("Payload URL:    ") + chalk.cyan("https://ofrenda.necrolink.tech/api/webhooks/github"));
+    console.log(chalk.bold("Content Type:   ") + chalk.yellow("application/json"));
+    console.log(chalk.bold("Secret:         ") + chalk.gray("Set as GITHUB_WEBHOOK_SECRET in environment"));
+    console.log(chalk.bold("Events to Send: ") + chalk.white("Repositories (archived), Issues (labeled 'memorial')\n"));
+    console.log(chalk.gray("When a repository is archived, NecroLink automatically triggers a durable resurrection,"));
+    console.log(chalk.gray("generates a TabPFN mortality score, and dispatches an ofrenda memorial post-mortem.\n"));
   });
 
 program.parse(process.argv);

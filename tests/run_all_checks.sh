@@ -25,16 +25,18 @@ echo "Step 2: Running Strict TypeScript Compilation across all workspaces..."
 npm run typecheck
 echo "✅ Step 2 Passed: Monorepo TypeScript strict check passed cleanly."
 
-# 3. CLI & Agent Integration Smoke Tests
-echo "Step 3: Running CLI, Tools, and Durable Workflow Integration Tests..."
+# 3. CLI, Agent & GitHub Webhook Integration Smoke Tests
+echo "Step 3: Running CLI, Tools, Webhook, and Durable Workflow Integration Tests..."
 npm test
-echo "✅ Step 3 Passed: CLI and Agent smoke tests passed cleanly."
+npm run test:webhook
+echo "✅ Step 3 Passed: CLI, Agent, and Webhook smoke tests passed cleanly."
 
 # 4. End-to-End Command Smoke Validations
 echo "Step 4: Executing NecroLink CLI commands..."
 npx tsx cli/bin/necrolink.ts analyze unix-v6-legacy
 npx tsx cli/bin/necrolink.ts eulogy fortran-matrix-v1
 npx tsx cli/bin/necrolink.ts altar
+npx tsx cli/bin/necrolink.ts simulate-archive fortran-matrix-v1
 npx tsx cli/bin/necrolink.ts resurrect unix-v6-legacy --silent
 echo "✅ Step 4 Passed: All CLI commands completed successfully."
 

@@ -98,5 +98,19 @@
 - [x] 8.2 Write heavyweight prize-optimized `SUBMISSION_WRITEUP.md` (DEV post ready, deep technical dive, partner prize criteria matrix)
   - *Note*: Comprehensive prize-optimized writeup covering all technical dimensions and partner criteria.
 
+### Milestone 9: Live GitHub Webhook Ingestion & Automated Memorial Dispatcher
+- [x] 9.1 Implement GitHub Webhook core processor and HMAC SHA256 signature verifier (`agent/src/tools/githubWebhookTool.ts`)
+  - *Note*: Implemented `verifyGitHubWebhookSignature` (timing-safe HMAC SHA-256) and `processGitHubWebhook` supporting `repository.archived`, `issues.labeled` (`memorial`), and `ping`.
+- [x] 9.2 Implement Memorial Post-Mortem and PR/Issue Tribute Generator with offline local artifact fallback
+  - *Note*: Generates Markdown memorial post-mortems with TabPFN risk diagnostics, contributor honor roll, and eulogy, dispatching to GitHub API or saving to `memorials/`.
+- [x] 9.3 Implement Next.js Webhook API route handler (`web/src/app/api/webhooks/github/route.ts`)
+  - *Note*: App Router handler verifying signatures, processing events, and returning 200/401 JSON responses.
+- [x] 9.4 Add CLI command for local webhook testing & simulated archive triggers (`cli/bin/necrolink.ts` `simulate-archive`, `webhook-info`)
+  - *Note*: CLI commands added to test and simulate GitHub archive events with live terminal preview.
+- [x] 9.5 Write automated test suite for GitHub Webhook ingestion (`tests/webhook.test.ts`)
+  - *Note*: 12 automated unit and integration tests passing cleanly.
+- [x] 9.6 Run full verification (`npm run typecheck`, `npm test`, webhook tests, git commit)
+  - *Note*: Entire pipeline verified 100% green via `run_all_checks.ps1` and `run_all_checks.sh`.
+
 ---
-*Status: All 8 Milestones Completed. Verification: 100% Green. Project Ready for Production Deployment.*
+*Status: All 9 Milestones Completed. Verification: 100% Green. Project Ready for Production Deployment.*

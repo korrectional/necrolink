@@ -14,10 +14,13 @@
     "build": "npm run build --workspaces --if-present",
     "typecheck": "tsc --noEmit && npm run typecheck --workspaces --if-present",
     "test": "tsx tests/cli.test.ts",
+    "test:webhook": "tsx tests/webhook.test.ts",
+    "test:all": "tsx tests/cli.test.ts && tsx tests/webhook.test.ts",
     "cli": "tsx cli/bin/necrolink.ts",
     "cli:possession": "tsx cli/bin/necrolink.ts possession",
     "cli:resurrect": "tsx cli/bin/necrolink.ts resurrect",
     "cli:altar": "tsx cli/bin/necrolink.ts altar",
+    "cli:simulate": "tsx cli/bin/necrolink.ts simulate-archive",
     "analysis:dev": "python -m uvicorn analysis.app:app --reload --port 8000",
     "web:dev": "npm run dev --workspace=web",
     "temporal:worker": "tsx workflows/src/worker.ts"

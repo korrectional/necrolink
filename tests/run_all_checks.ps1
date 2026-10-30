@@ -22,16 +22,18 @@ Write-Host "Step 2: Running Strict TypeScript Compilation across all workspaces.
 npm run typecheck
 Write-Host "✅ Step 2 Passed: Monorepo TypeScript strict check passed cleanly." -ForegroundColor Green
 
-# 3. CLI & Agent Integration Smoke Tests
-Write-Host "Step 3: Running CLI, Tools, and Durable Workflow Integration Tests..." -ForegroundColor Cyan
+# 3. CLI, Agent & GitHub Webhook Integration Smoke Tests
+Write-Host "Step 3: Running CLI, Tools, Webhook, and Durable Workflow Integration Tests..." -ForegroundColor Cyan
 npm test
-Write-Host "✅ Step 3 Passed: CLI and Agent smoke tests passed cleanly." -ForegroundColor Green
+npm run test:webhook
+Write-Host "✅ Step 3 Passed: CLI, Agent, and Webhook smoke tests passed cleanly." -ForegroundColor Green
 
 # 4. End-to-End Command Smoke Validations
 Write-Host "Step 4: Executing NecroLink CLI commands..." -ForegroundColor Cyan
 npx tsx cli/bin/necrolink.ts analyze unix-v6-legacy
 npx tsx cli/bin/necrolink.ts eulogy fortran-matrix-v1
 npx tsx cli/bin/necrolink.ts altar
+npx tsx cli/bin/necrolink.ts simulate-archive fortran-matrix-v1
 npx tsx cli/bin/necrolink.ts resurrect unix-v6-legacy --silent
 Write-Host "✅ Step 4 Passed: All CLI commands completed successfully." -ForegroundColor Green
 
