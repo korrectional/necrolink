@@ -83,7 +83,7 @@ graph TD
 ### 2. Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/necrolink/necrolink.git
+git clone https://github.com/korrectional/necrolink.git
 cd necrolink
 
 # Provision Python 3.12 Virtual Environment & Install Dependencies
