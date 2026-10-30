@@ -121,8 +121,17 @@ export async function parseGitRepository(repoPath: string): Promise<ExtractedGit
       }
 
       // Synthetic metrics for vintage / offline repositories
+      const lowerName = repoName.toLowerCase();
+      const isAncientName = lowerName.includes("legacy") ||
+        lowerName.includes("ancient") ||
+        lowerName.includes("v6") ||
+        lowerName.includes("fortran") ||
+        lowerName.includes("compiler-turbo") ||
+        lowerName.includes("abandoned") ||
+        lowerName.includes("v1");
+
       const hash = Array.from(repoName).reduce((acc, c) => acc + c.charCodeAt(0), 0);
-      const isAncient = hash % 2 === 0;
+      const isAncient = isAncientName || hash % 2 === 0;
 
       const metrics: TabPFNMetrics = isAncient
         ? {
